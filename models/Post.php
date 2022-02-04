@@ -61,7 +61,7 @@ class Post extends BaseModel{
         return $this->executeQuery($query);
     }
 
-    function getPostByUser($user_id){
+    function getPostsByUser($user_id){
         $query = 
         "
         SELECT

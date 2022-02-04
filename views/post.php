@@ -51,6 +51,7 @@ $recent_posts = $post_controller->getRecentPosts();
     <?php foreach ($other_posts as $row) {
         include 'snippets/post_card.php';
     } ?>
+    <?= count($other_posts) == 0 ? "<h3 class='text-center'>No Other Posts.</h3>": "" ?>;
 </div>
 <hr>
 <h4>Recent Posts</h4>
@@ -58,5 +59,6 @@ $recent_posts = $post_controller->getRecentPosts();
     <?php foreach ($recent_posts as $row) {
         include 'snippets/post_card.php';
     } ?>
+    <?= count($recent_posts) == 0 ? "<h3 class='text-center'>No Other Posts.</h3>": "" ?>;
 </div>
 <?php require_once "snippets/footer.php" ?>

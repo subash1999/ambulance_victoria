@@ -1,5 +1,5 @@
 <?php
-$title = "Travel Image";
+$title = "User List";
 require_once "snippets/header.php";
 require_once "../controllers/UserController.php";
 
@@ -7,7 +7,7 @@ $user_controller = new UserController();
 $users = $user_controller->getAllUsers();
 $new_images = $user_controller->getNewAdditions();
 ?>
-<h2 class="mt-2">Posts</h2>
+<h2 class="mt-2">Users</h2>
 <table class="table table-bordered datatable">
     <thead>
         <th>SN</th>

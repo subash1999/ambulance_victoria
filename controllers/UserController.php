@@ -2,6 +2,7 @@
 require_once "BaseController.php";
 require_once "../models/User.php";
 require_once "../models/TravelImage.php";
+require_once "../models/Post.php";
 
 class UserController extends BaseController{
     function getAllUsers(){
@@ -23,6 +24,17 @@ class UserController extends BaseController{
         }
         return null;
     }
+
+    function getPostsByUser($user_id){
+        $post = new Post();
+       return $this->fetchAllResults($post->getPostsByUser($user_id));
+    }
+
+    function getTravelImagesByUser($user_id){
+        $image = new TravelImage();
+        return $this->fetchAllResults($image->getTravelImagesByUser($user_id));
+    }
+
     function getNewAdditions()
     {
         $travel_image = new TravelImage();

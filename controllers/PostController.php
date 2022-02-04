@@ -36,9 +36,9 @@ class PostController extends BaseController{
     function getOtherPostsByUser($user_id,$current_post_id){
         $post = new Post();
         $posts = [];
-        $result = $post->getPostByUser($user_id,$current_post_id);
+        $result = $post->getPostsByUser($user_id);
         while($row = $result->fetch_assoc()){
-            if($row['UID']!=$current_post_id){
+            if($row['PostID']!=$current_post_id){
                 array_push($posts,$row);
             }
             
