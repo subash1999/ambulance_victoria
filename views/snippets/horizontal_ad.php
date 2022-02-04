@@ -1,0 +1,1 @@
+<img src="../../assets/images/horizontal-banner.jpg" alt="Horizontal Ad Banner" class="img-fluid" >
