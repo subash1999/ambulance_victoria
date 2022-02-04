@@ -1,7 +1,9 @@
 <?php
+require_once 'BaseController.php';
 require_once  '../models/TravelImage.php';
+require_once '../models/Post.php';
 
-class HomeController
+class HomeController extends BaseController
 {
     function getTravelPhotosTreeViewMenu()
     {
@@ -24,5 +26,10 @@ class HomeController
     {
         $travel_image = new TravelImage();
         return $travel_image->newImages();
+    }
+
+    function getRecentPosts(){
+        $post = new Post();
+        return $this->fetchAllResults($post->getRecentPosts());
     }
 }

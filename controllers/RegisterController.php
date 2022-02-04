@@ -1,7 +1,7 @@
 <?php
 require_once "BaseController.php";
 require_once "../models/User.php";
-require "LoginController.php";
+require_once "LoginController.php";
 
 class RegisterController extends BaseController
 {

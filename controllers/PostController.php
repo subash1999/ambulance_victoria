@@ -1,6 +1,6 @@
 <?php
 require_once "BaseController.php";
-require "../models/Post.php";
+require_once "../models/Post.php";
 
 class PostController extends BaseController{
     function getAllPosts(){
@@ -52,12 +52,8 @@ class PostController extends BaseController{
         return $travel_image->topImages();
     }
 
-    function RecentPosts(){
+    function getRecentPosts(){
         $post = new Post();
-        $posts = [];
-        while($row = $post->fetch_assoc()){
-            $post
-        }
-        return $post->getRecentPosts();
+        return $this->fetchAllResults($post->getRecentPosts());
     }
 }

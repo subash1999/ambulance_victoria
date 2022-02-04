@@ -46,6 +46,21 @@ class User extends BaseModel{
         return $this->executeQuery($query);
     }
 
+    function getUser($user_id){
+        $query = "
+        SELECT
+            *
+        FROM
+            traveluser
+        INNER JOIN traveluserdetails ON traveluserdetails.UID = traveluser.UID
+        LEFT OUTER JOIN geocountries ON traveluserdetails.Country = geocountries.CountryName      
+        LEFT OUTER JOIN geocities ON traveluserdetails.City = geocities.AsciiName
+        GROUP BY traveluser.UID
+        HAVING traveluser.UID = $user_id;
+        ";
+        return $this->executeQuery($query);
+    }
+
     function getUsersFollowers($user_id){
         $query = "
         SELECT

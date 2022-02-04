@@ -17,6 +17,7 @@ $post_controller = new PostController();
 $post = $post_controller->getPost($post_id);
 $post_images = $post_controller->getImagesOfPost($post_id);
 $other_posts = $post_controller->getOtherPostsByUser($post['UID'], $post_id);
+$recent_posts = $post_controller->getRecentPosts();
 ?>
 
 
@@ -48,6 +49,13 @@ $other_posts = $post_controller->getOtherPostsByUser($post['UID'], $post_id);
 <h4>Other Posts By User : <a href="user.php?uid=<?= $post['UID'] ?>"><?= $post['FirstName'] . " " . $post['LastName'] ?></a></h4>
 <div class="row mt-3">
     <?php foreach ($other_posts as $row) {
+        include 'snippets/post_card.php';
+    } ?>
+</div>
+<hr>
+<h4>Recent Posts</h4>
+<div class="row mt-3">
+    <?php foreach ($recent_posts as $row) {
         include 'snippets/post_card.php';
     } ?>
 </div>

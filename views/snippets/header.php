@@ -5,7 +5,7 @@ include "../utils/Auth.php";
 include "../utils/Validators.php";
 include "../utils/Redirect.php";
 include "../utils/Date.php";
-require '../controllers/HomeController.php';
+require_once '../controllers/HomeController.php';
 
 
 ?>

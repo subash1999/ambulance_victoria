@@ -14,6 +14,15 @@ class UserController extends BaseController{
         
         return $users;
     }
+    function getUser($user_id){
+        $user = new User();
+        $result = $user->getUser($user_id);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row;
+        }
+        return null;
+    }
     function getNewAdditions()
     {
         $travel_image = new TravelImage();
