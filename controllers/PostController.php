@@ -46,14 +46,5 @@ class PostController extends BaseController{
         return $posts;
     }
 
-    function getTopImages()
-    {
-        $travel_image = new TravelImage();
-        return $travel_image->topImages();
-    }
-
-    function getRecentPosts(){
-        $post = new Post();
-        return $this->fetchAllResults($post->getRecentPosts());
-    }
+    
 }

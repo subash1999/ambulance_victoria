@@ -154,7 +154,7 @@ class TravelImage extends BaseModel
         ";
         return $this->executeQuery($query);
     }
-    function topImages($limit = 3)
+    function getTopImages($limit = 3)
     {
         $query = "
             SELECT
@@ -190,7 +190,7 @@ class TravelImage extends BaseModel
         return $this->executeQuery($query);
     }
 
-    function newImages($limit = 3)
+    function getNewImages($limit = 3)
     {
         $query = "
             SELECT

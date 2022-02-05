@@ -38,6 +38,6 @@ class UserController extends BaseController{
     function getNewAdditions()
     {
         $travel_image = new TravelImage();
-        return $travel_image->newImages();
+        return $travel_image->getNewImages();
     }
 }

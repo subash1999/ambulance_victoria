@@ -12,13 +12,10 @@ $recent_posts = $home_controller->getRecentPosts();
 <hr>
 <h3>Top Images</h3>
 <div class="row">
+    <?php foreach ($top_images as $row) {
+        include 'snippets/image_card.php';
+    } ?>
 
-    <?php if ($top_images->num_rows > 0) { ?>
-        <?php while ($row = $top_images->fetch_assoc()) {
-            include 'snippets/image_card.php';
-        } ?>
-
-    <?php } ?>
 </div>
 <hr>
 <h3>New Additions</h3>
@@ -26,11 +23,9 @@ $recent_posts = $home_controller->getRecentPosts();
     <?php
     $new_images = $home_controller->getNewAdditions();
     ?>
-    <?php if ($new_images->num_rows > 0) { ?>
-        <?php while ($row = $new_images->fetch_assoc()) {
-            include 'snippets/image_card.php';
-        } ?>
-    <?php } ?>
+    <?php foreach ($new_images as $row) {
+        include 'snippets/image_card.php';
+    } ?>
 </div>
 <hr>
 <h4>Recent Posts</h4>

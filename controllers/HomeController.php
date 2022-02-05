@@ -7,29 +7,27 @@ class HomeController extends BaseController
 {
     function getTravelPhotosTreeViewMenu()
     {
-        $continents = [];
-        $travel_image = new TravelImage();
-        $result = $travel_image->travelImageCategorized();
-        while($row = $result->fetch_assoc()){
-            array_push($continents, $row);
-        }
-        return $continents;
+        return $this->fetchAllResults(
+            (new TravelImage())->travelImageCategorized()
+        );
+       
     }
 
     function getTopImages()
     {
-        $travel_image = new TravelImage();
-        return $travel_image->topImages();
+        return $this->fetchAllResults(
+            (new TravelImage())->getTopImages()
+        );
     }
 
     function getNewAdditions()
     {
-        $travel_image = new TravelImage();
-        return $travel_image->newImages();
+        return $this->fetchAllResults(
+            (new TravelImage())->getNewImages()
+        );
     }
 
     function getRecentPosts(){
-        $post = new Post();
-        return $this->fetchAllResults($post->getRecentPosts());
+        return $this->fetchAllResults((new Post())->getRecentPosts());
     }
 }

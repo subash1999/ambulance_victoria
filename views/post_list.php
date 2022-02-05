@@ -31,11 +31,8 @@ $top_images = $post_controller->getTopImages();
 <hr>
 <h3>Top Images</h3>
 <div class="row">
-<?php if ($top_images->num_rows > 0) { ?>
-    <?php while ($row = $top_images->fetch_assoc()) {
+    <?php foreach ($top_images as $row) {
         include 'snippets/image_card.php';
     } ?>
-
-<?php } ?>
 </div>
 <?php require_once "snippets/footer.php" ?>
