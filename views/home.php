@@ -8,6 +8,7 @@ require_once  '../controllers/HomeController.php';
 $home_controller = new HomeController();
 $top_images = $home_controller->getTopImages();
 $recent_posts = $home_controller->getRecentPosts();
+$new_images = $home_controller->getNewAdditions();
 ?>
 <hr>
 <h3>Top Images</h3>
@@ -20,9 +21,6 @@ $recent_posts = $home_controller->getRecentPosts();
 <hr>
 <h3>New Additions</h3>
 <div class="row">
-    <?php
-    $new_images = $home_controller->getNewAdditions();
-    ?>
     <?php foreach ($new_images as $row) {
         include 'snippets/image_card.php';
     } ?>

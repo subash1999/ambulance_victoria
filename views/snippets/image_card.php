@@ -1,4 +1,4 @@
-<div class="col-md-4">
+<div class="col-md-4 mt-1 mb-1">
     <div class="card">
         <img class="card-img-top" src="../travel-images/medium/<?= $row['image_path'] ?>" height="200px" alt="Card image cap">
         <div class="card-body">

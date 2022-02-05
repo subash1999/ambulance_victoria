@@ -16,6 +16,18 @@ class BaseController
 
     function fetchFirstResult($result)
     {
+        
+        while ($row = $result->fetch_assoc()) {
+            return $row;
+        }
+        return null;
+    }
+
+    function fetchResultFirstOrFail($result)
+    {
+        if($result->num_rows <=0 ){
+            Redirect::notFound();
+        }
         while ($row = $result->fetch_assoc()) {
             return $row;
         }

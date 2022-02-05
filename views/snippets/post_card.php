@@ -4,7 +4,7 @@ $post_controller = new PostController();
 
 $images = $post_controller->getImagesOfPost($row['PostID']);
 ?>
-<div class="col-md-4">
+<div class="col-md-4 mt-1 mb-1">
     <div class="card">
 
         <div class="card-body">

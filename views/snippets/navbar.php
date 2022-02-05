@@ -10,18 +10,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $home_controller = new HomeController();
 $tree_view = $home_controller->getTravelPhotosTreeViewMenu();
-$continets = [];
-$countries = [];
-$cities = [];
-foreach($tree_view as $continent){
-  $continents[$continent['ContinentName']] = $continent;
-}
-foreach($tree_view as $country){
-  $countries[$country['CountryName']] = $country;
-}
-foreach($tree_view as $city){
-  $cities[$city['AsciiName']] = $city;
-}
+$continents = $tree_view['continents'];
+$countries = $tree_view['countries'];
+$cities = $tree_view['cities'];
+
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary ps-3 pe-3">
   <div class="container-fluid">
@@ -76,7 +68,7 @@ foreach($tree_view as $city){
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="post_list.php">Post</a></li>
-            <li><a class="dropdown-item" href="image.php">Image</a></li>
+            <li><a class="dropdown-item" href="search.php">Image</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -84,8 +76,8 @@ foreach($tree_view as $city){
           </ul>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <form method="GET" action="search.php" class="d-flex">
+        <input class="form-control me-2" type="search" name="image_title" placeholder="Search" aria-label="Search" required>
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>

@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once "../env.php";
 include "../utils/Alert.php";
 include "../utils/Auth.php";
 include "../utils/Validators.php";

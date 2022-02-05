@@ -9,12 +9,16 @@ class CountryController extends BaseController{
      * $iso: ISO of the country
      */
     function getCountryDetails($iso){
-        return $this->fetchFirstResult(
+        return $this->fetchResultFirstOrFail(
             (new Country())->getCountryByISO($iso)
         );
     }
 
-    function getTravelImageOfCountry($iso){
+    
+    function getTravelImagesOfCountry($iso){
 
+        return $this->fetchAllResults(
+            (new TravelImage())->getTravelImagesOfCountry($iso)
+        );
     }
 }

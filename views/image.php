@@ -118,15 +118,20 @@ $ratings = $travel_image_controller->getAllRatings($image_id);
 </div>
 <!-- travel_image js -->
 <script src="../assets/travel_image.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=">
-</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<?= ENV['google_maps_key'] ?>"></script>
 <script>
+    var centerPoint = {
+        lat: <?= $image['Latitude'] ?>,
+        lng: <?= $image['Longitude'] ?>,
+    };
     var map = new google.maps.Map(document.getElementById('map'), {
-        center: {
-            lat: -34.397,
-            lng: 150.644
-        },
+        center: centerPoint,
         zoom: 8
+    });
+    new google.maps.Marker({
+        position: centerPoint,
+        map,
+        title: "Hello World!",
     });
 </script>
 <?php require_once "snippets/footer.php" ?>

@@ -4,10 +4,10 @@ class BaseModel
 {
     function connect()
     {
-        $servername = "localhost";
-        $database = "travels";
-        $username = "root";
-        $password = "";
+        $servername = ENV['servername'];
+        $database = ENV['database'];
+        $username = ENV['username'];
+        $password = ENV['password'];
 
         // Create connection
         $conn = new mysqli($servername, $username, $password, $database);
