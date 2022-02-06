@@ -38,7 +38,10 @@ $ratings = $travel_image_controller->getAllRatings($image_id);
 
     <div class="row">
         <div class="col-md-6">
-            <img src="../travel-images/large/<?= $image['image_path'] ?>" height="200px" alt="Travel Image" class="img-fluid img-thumbnail">
+            <a href="../../travel-images/large/<?= $image['image_path'] ?>" data-lightbox="lightbox-<?= $image['image_id'] ?>" data-title="<?= $image['title'] ?>">
+
+                <img src="../travel-images/large/<?= $image['image_path'] ?>" height="200px" alt="Travel Image" class="img-fluid img-thumbnail">
+            </a>
             <p class="mt-3"><?= $image['description'] ?></p>
 
             <?php if ($image['uid']) { ?>

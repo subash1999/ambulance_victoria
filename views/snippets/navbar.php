@@ -89,7 +89,7 @@ $cities = $tree_view['cities'];
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <?php if (Auth::isLogin()) { ?>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="my_account.php">
+            <a class="nav-link active" aria-current="page" href="user.php?uid=<?= Auth::currentUser()['UID'] ?>">
               <?= Auth::currentUser()['UserName'] ?> (My Account)
             </a>
           </li>

@@ -2,21 +2,25 @@
 require_once "BaseModel.php";
 class TravelImage extends BaseModel
 {
-    function getAllRatingsOfImage($image_id){
-        return 
-        $this->executeQuery($this->selectQuery('travelimagerating',"*","WHERE imageID=$image_id"));
+    function getAllRatingsOfImage($image_id)
+    {
+        return
+            $this->executeQuery($this->selectQuery('travelimagerating', "*", "WHERE imageID=$image_id"));
     }
 
-    function addRating($image_id,$rating){
-        return 
-        $this->executeQuery($this->insertQuery('travelimagerating',['ImageID'=>$image_id,"Rating"=>$rating]));
+    function addRating($image_id, $rating)
+    {
+        return
+            $this->executeQuery($this->insertQuery('travelimagerating', ['ImageID' => $image_id, "Rating" => $rating]));
     }
 
-    function deleteRating($image_rating_id){
-        return 
-        $this->executeQuery($this->deleteQuery('travelimagerating'," WHERE ImageRatingID=$image_rating_id"));
+    function deleteRating($image_rating_id)
+    {
+        return
+            $this->executeQuery($this->deleteQuery('travelimagerating', " WHERE ImageRatingID=$image_rating_id"));
     }
-    function getTravelImagesByUser($user_id){
+    function getTravelImagesByUser($user_id)
+    {
         $query =
             "
         SELECT
@@ -262,10 +266,10 @@ class TravelImage extends BaseModel
                 avg_rating
             DESC 
         ";
-        if($limit){
+        if ($limit) {
             $query .= " LIMIT $limit";
         }
-        $query .=";";
+        $query .= ";";
         return $this->executeQuery($query);
     }
 
@@ -303,14 +307,14 @@ class TravelImage extends BaseModel
                 avg_rating
             DESC 
         ";
-        if($limit){
+        if ($limit) {
             $query .= " LIMIT $limit";
         }
-        $query .=";";
+        $query .= ";";
         return $this->executeQuery($query);
     }
 
-    function travelImageCategorizeQuery()
+    private function travelImageCategorizeQuery()
     {
         $query =
             "
@@ -360,5 +364,142 @@ class TravelImage extends BaseModel
         $query = $this->travelImageCategorizeQuery();
         $query .= " GROUP BY CountryName HAVING ContinentName='$continent';";
         return $this->executeQuery($query);
+    }
+
+    private function searchTravelImageQuery($having_condition = "")
+    {
+        $query = "
+            SELECT
+                travelimage.ImageID as image_id,
+                travelimage.path as image_path,
+                travelimagedetails.Title as title,
+                geocountries.ISO as country_iso,
+                geocountries.CountryName as country_name,
+                geocities.AsciiName as city_name,
+                geocities.GeoNameId as geo_name_id,
+                travelimagedetails.Description as description,
+                travelimagelocations.ImageLocationID as image_location_id,
+                travelimagelocations.LocationName as location_name,
+                traveluserdetails.UID as uid,
+                traveluserdetails.FirstName as first_name,
+                traveluserdetails.LastName as last_name,
+                ROUND(AVG(travelimagerating.Rating),2) AS avg_rating
+            FROM
+                travelimage
+            LEFT JOIN travelimagerating ON travelimage.ImageID = travelimagerating.ImageID
+            LEFT JOIN travelimagedetails ON travelimagedetails.ImageID = travelimage.ImageID
+            LEFT JOIN traveluserdetails ON travelimage.UID = traveluserdetails.UID
+            LEFT JOIN travelimagelocations ON travelimagelocations.ImageID = travelimage.ImageID
+            LEFT JOIN geocountries ON travelimagedetails.CountryCodeISO = geocountries.ISO
+            LEFT JOIN geocities ON travelimagedetails.CityCode = geocities.GeoNameID
+            GROUP BY
+                image_id
+        ";
+        $query .=  $having_condition != "" ? " HAVING $having_condition" : "";
+        $query .= "
+            ORDER BY
+                avg_rating
+            DESC;
+        ";
+
+        return $query;
+    }
+
+    function getUniquesCountriesInSearch()
+    {
+        $query = "
+            SELECT DISTINCT
+                geocountries.ISO as country_iso,
+                geocountries.CountryName as country_name
+            FROM 
+                travelimage
+            LEFT JOIN travelimagerating ON travelimage.ImageID = travelimagerating.ImageID
+            LEFT JOIN travelimagedetails ON travelimagedetails.ImageID = travelimage.ImageID
+            LEFT JOIN traveluserdetails ON travelimage.UID = traveluserdetails.UID
+            LEFT JOIN travelimagelocations ON travelimagelocations.ImageID = travelimage.ImageID
+            LEFT JOIN geocountries ON travelimagedetails.CountryCodeISO = geocountries.ISO
+            LEFT JOIN geocities ON travelimagedetails.CityCode = geocities.GeoNameID
+            ";
+        return $this->executeQuery($query);
+    }
+
+    function getUniquesCitiesInSearch()
+    {
+        $query = "
+            SELECT DISTINCT
+                geocities.GeoNameId as geo_name_id,
+                geocities.AsciiName as city_name
+            FROM 
+                travelimage
+            LEFT JOIN travelimagerating ON travelimage.ImageID = travelimagerating.ImageID
+            LEFT JOIN travelimagedetails ON travelimagedetails.ImageID = travelimage.ImageID
+            LEFT JOIN traveluserdetails ON travelimage.UID = traveluserdetails.UID
+            LEFT JOIN travelimagelocations ON travelimagelocations.ImageID = travelimage.ImageID
+            LEFT JOIN geocountries ON travelimagedetails.CountryCodeISO = geocountries.ISO
+            LEFT JOIN geocities ON travelimagedetails.CityCode = geocities.GeoNameID
+            ";
+        return $this->executeQuery($query);
+    }
+
+    function filterCondition($image_title = null, $countries = null, $cities = null)
+    {
+        $filter = "";
+        if ($image_title) {
+            $filter .= "  travelimagedetails.Title LIKE '%$image_title%'";
+        }
+        if ($countries) {
+            if ($image_title) {
+                $filter .= " AND ";
+            }
+
+            foreach ($countries as $key => $country) {
+                $countries[$key] = " geocountries.ISO = '$country'";
+            }
+
+            $filter .= " (" . join(" OR ", $countries) . ")";
+        }
+
+        if ($cities) {
+            if ($image_title || $countries) {
+                $filter .= " AND ";
+            }
+
+            foreach ($cities as $key => $city) {
+                $cities[$key] = " geocities.GeoNameId = '$city'";
+            }
+
+            $filter .= " (" . join(" OR ", $cities) . ")";
+        }
+        return $filter;
+    }
+    function searchTravelImage($image_title = null, $countries = null, $cities = null)
+    {
+        return $this->executeQuery(
+            $this->searchTravelImageQuery($this->filterCondition($image_title, $countries, $cities))
+        );
+    }
+    function searchTravelImageTotalCount($image_title = null, $countries = null, $cities = null)
+    {
+
+        $query = "
+        SELECT 
+            COUNT(DISTINCT travelimage.ImageID) as count
+        FROM 
+            travelimage
+        LEFT JOIN travelimagerating ON travelimage.ImageID = travelimagerating.ImageID
+        LEFT JOIN travelimagedetails ON travelimagedetails.ImageID = travelimage.ImageID
+        LEFT JOIN traveluserdetails ON travelimage.UID = traveluserdetails.UID
+        LEFT JOIN travelimagelocations ON travelimagelocations.ImageID = travelimage.ImageID
+        LEFT JOIN geocountries ON travelimagedetails.CountryCodeISO = geocountries.ISO
+        LEFT JOIN geocities ON travelimagedetails.CityCode = geocities.GeoNameID
+        ";
+        $filter = $this->filterCondition($image_title, $countries, $cities);
+        if ($filter != "") {
+            $query .= " WHERE " . $filter;
+        }
+
+        return $this->executeQuery(
+            $query
+        );
     }
 }
