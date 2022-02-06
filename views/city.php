@@ -17,23 +17,22 @@ $images = $city_controller->getTravelImagesOfCity($geo_name_id);
 $country = $city_controller->getCountryDetails($city['CountryCodeISO']);
 ?>
 <div class="mt-2">
-    <h2>
-        <div class="row">
-            <div class="col-md-6">
-                City: <?= $city['AsciiName'] ?>
-            </div>
-        </div>
-    </h2>
-    <p>Population: <?= $city['Population'] ?></p>
-    <p>Elevation: <?= $city['Elevation'] ? $city['Elevation'] : "NA" ?> m</p>
-    <p>Country: <a href="country.php?iso=<?= $country['ISO'] ?>"><?= $country['CountryName'] ?></a></p>
-    <h5>City Map</h5>
+
+
     <div class="row">
         <div class="col-md-6">
-            <div id="map"></div>
+            <h2> City: <?= $city['AsciiName'] ?></h2>
+            <p>Population: <?= $city['Population'] ?></p>
+            <p>Elevation: <?= $city['Elevation'] ? $city['Elevation'] : "NA" ?> m</p>
+            <p>Country: <a href="country.php?iso=<?= $country['ISO'] ?>"><?= $country['CountryName'] ?></a></p>
+        </div>
+        <div class="col-md-6">
+            <h5>City Map</h5>
+
+            <div id="map" style="height:400px;width:100%"></div>
         </div>
     </div>
-    
+
 </div>
 <hr>
 <h3>Travel Images of City : <?= $city['AsciiName'] ?></h3>
@@ -42,15 +41,18 @@ $country = $city_controller->getCountryDetails($city['CountryCodeISO']);
         include 'snippets/image_card.php';
     } ?>
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?key=<?= ENV['google_maps_key'] ?>"></script>
 <script>
-    var centerPoint = {
-        lat: <?= $city['Latitude'] ?>,
-        lng: <?= $city['Longitude'] ?>,
-    };
-    var map = new google.maps.Map(document.getElementById('map'), {
-        center: centerPoint,
-        zoom: 8
-    });
+    function initMap() {
+        var centerPoint = {
+            lat: <?= $city['Latitude'] ?>,
+            lng: <?= $city['Longitude'] ?>,
+        };
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: centerPoint,
+            zoom: 8
+        });
+    }
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<?= ENV['google_maps_key'] ?>&callback=initMap&libraries=&v=weekly"></script>
+
 <?php require_once "snippets/footer.php" ?>
