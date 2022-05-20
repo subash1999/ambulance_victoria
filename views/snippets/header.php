@@ -6,7 +6,6 @@ include "../utils/Auth.php";
 include "../utils/Validators.php";
 include "../utils/Redirect.php";
 include "../utils/Date.php";
-require_once '../controllers/HomeController.php';
 
 
 ?>
@@ -18,7 +17,7 @@ require_once '../controllers/HomeController.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- favicon -->
-    <link rel="shortcut icon" href="../assets/favicon/favicon-32x32.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../assets/favicon/android-chrome-192x192.png" type="image/x-icon">
     <link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../assets/bootstrap/theme.css">
     <link rel="stylesheet" href="../../assets/multilevel-dropdown.css">
@@ -44,4 +43,4 @@ require_once '../controllers/HomeController.php';
         Alert::showAlert();
         ?>
         <div class="row">
-            <div class="mb-2 col-10">
+            <div class="mb-2 col-12">

@@ -19,8 +19,7 @@ class LoginController extends BaseController
         SELECT
             *
         FROM
-            traveluser
-        INNER JOIN traveluserdetails ON traveluser.UID = traveluserdetails.UID
+            user
         WHERE
             username = '$username' AND PASS = '$password';
         ";
@@ -29,7 +28,7 @@ class LoginController extends BaseController
             $row = $result->fetch_assoc();
 
             Auth::storeAuthDetails($row);
-            Alert::setAlertMessage("Logined Successfully.");
+            Alert::setAlertMessage("Logined Successfully.","Success");
 
             echo '<script>
 

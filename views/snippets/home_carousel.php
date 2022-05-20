@@ -8,13 +8,13 @@
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="../../travel-images/large/5855213165.jpg" class="d-block w-100 carousel-img img-fluid" alt="Image 1">
+            <img src="../../assets/images/carousel_images/image1.jpg" class="d-block w-100 carousel-img img-fluid" alt="Image 1">
         </div>
         <div class="carousel-item">
-            <img src="../../travel-images/large/5855174537.jpg" class="d-block w-100 carousel-img img-fluid" alt="Image 2">
+            <img src="../../assets/images/carousel_images/image2.jpg" class="d-block w-100 carousel-img img-fluid" alt="Image 2">
         </div>
         <div class="carousel-item">
-            <img src="../../travel-images/large/9505893300.jpg" class="d-block w-100 carousel-img img-fluid" alt="Image 3">
+            <img src="../../assets/images/carousel_images/image3.png" class="d-block w-100 carousel-img img-fluid" alt="Image 3">
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#homeTopCarousel" data-bs-slide="prev">

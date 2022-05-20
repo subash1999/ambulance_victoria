@@ -1,16 +1,6 @@
 </div>
-<div class="col-2">
-    <?php require_once 'snippets/vertical_ad.php' ?>
-</div>
 
 
-</div>
-<div class="row">
-    <div class="col-12">
-        <div class="mt-3">
-            <?php require_once 'snippets/horizontal_ad.php' ?>
-        </div>
-    </div>
 </div>
 </div>
 <script>
@@ -41,20 +31,23 @@
         <div class="d-flex justify-content-around">
             <div class="d-flex justify-content-around">
                 <div>
-                    <a href="post.php" class="nav-link active">Post</a>
+                    <a href="search.php" class="nav-link active">Search Ambulance</a>
                 </div>
                 <div>
-                    <a href="user.php" class="nav-link active">User</a>
+                    <a href="vehicle_list.php" class="nav-link active">Vehicle List</a>
                 </div>
                 <div>
-                    <a href="image.php" class="nav-link active">Image</a>
+                    <a href="company_list.php" class="nav-link active">Company List</a>
+                </div>
+                <div>
+                    <a href="login.php" class="nav-link active">Login</a>
                 </div>
                 <div>
                     <a href="about_us.php" class="nav-link active">About Us</a>
                 </div>
             </div>
             <div>&copy Copyright 2022</div>
-            <div>Developed By Students for A4 of <b>Developing Web Information Systems</b></div>
+            <div>Developed By Students for <b>Capstone Project</b></div>
         </div>
 
     </div>

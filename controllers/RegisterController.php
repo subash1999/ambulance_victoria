@@ -14,24 +14,20 @@ class RegisterController extends BaseController
         }
 
         // if valid then add the user details.
-        $travel_user = [];
-        $travel_user['username'] = $post_data['email'];
-        $travel_user['pass'] = $post_data['password'];
-        // just following the trend on database and keeping the value as 1
-        // no idea about what this field is about 
-        $travel_user['state'] = 1;
+        $user = [];
+        $user['username'] = $post_data['email'];
+        $user['PASS'] = $post_data['password'];
         // current date time as default value for these two fields
-        $travel_user['datejoined'] = date('Y-m-d H:i:s');
-        $travel_user['datelastmodified'] = date('Y-m-d H:i:s');
+        $user['datejoined'] = date('Y-m-d H:i:s');
+        $user['datelastmodified'] = date('Y-m-d H:i:s');
 
         // travel user details
-        $travel_user_details = $post_data;
-        unset($travel_user_details['password_confirmation']);
-        unset($travel_user_details['password']);
-        // privacy 2 for customer and 1 for admin
-        $travel_user_details['privacy'] = 2;
-        $user = new User();
-        if($user->addUser($travel_user,$travel_user_details)){
+        $company = $post_data;
+        unset($company['password_confirmation']);
+        unset($company['password']);
+    
+        $user_modal = new User();
+        if($user_modal->addUser($user,$company)){
             // login if the registration is successful
             $login_controller = new LoginController();
             // this will automatically redirect the user after the successful login
@@ -50,11 +46,9 @@ class RegisterController extends BaseController
         $is_valid = true;
         // required validation
         $result =  Validators::required([
-            'First Name' => $post_data['firstName'],
-            'Last Name' => $post_data['lastName'],
+            'Company Name' => $post_data['company_name'],
             'Address' => $post_data['address'],
             'City' => $post_data['city'],
-            'Country' => $post_data['country'],
             'Postal' => $post_data['postal'],
             'Phone' => $post_data['phone'],
             'Email' => $post_data['email'],

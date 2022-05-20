@@ -10,26 +10,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include "../controllers/RegisterController.php";
     $register_controller = new RegisterController();
     $result = $register_controller->register($_POST);
-    if (!$result['success']) {  
+    if (!$result['success']) {
         $error_messages = $result['message'];
     }
-    if(isset($result['title'])){
+    if (isset($result['title'])) {
         $error_title = $result['title'];
     }
 }
 
-function getOldValues($value_name){
-    if (array_key_exists($value_name,$_POST)){
+function getOldValues($value_name)
+{
+    if (array_key_exists($value_name, $_POST)) {
         return $_POST[$value_name];
     }
     return "";
 }
 
-require_once "../models/Country.php";
-require_once "../models/City.php";
-
-$country = new Country();
-$country_list = $country->executeQuery($country->selectQuery('geocountries'));
 ?>
 <div class="row h-100">
     <div class="col-sm-12 mt-5">
@@ -42,16 +38,8 @@ $country_list = $country->executeQuery($country->selectQuery('geocountries'));
             } ?>
             <form method="post">
                 <div class="mb-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label class="form-control-label" for="firstName">First Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="firstName" id="firstName" value="<?= getOldValues('firstName') ?>">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-control-label" for="lastName">Last Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="lastName" id="lastName" value="<?= getOldValues('lastName') ?>">
-                        </div>
-                    </div>
+                    <label class="form-control-label" for="company_name">Company Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="company_name" id="company_name" value="<?= getOldValues('company_name') ?>">
                 </div>
                 <div class="mb-3">
                     <div class="row">
@@ -71,19 +59,6 @@ $country_list = $country->executeQuery($country->selectQuery('geocountries'));
                         <div class="col-md-6">
                             <label class="form-control-label" for="region">Region</label>
                             <input type="text" class="form-control" name="region" id="region" value="<?= getOldValues('region') ?>">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-control-label" for="country">Country <span class="text-danger">*</span></label>
-                            <select class="form-control" name="country" id="country" placeholder="Select a country">
-                                <option value="" <?php echo(getOldValues('country')!=""?"selected": "") ?> >Select a Country</option>
-                                <?php if ($country_list->num_rows > 0) { ?>
-                                    <?php while ($row = $country_list->fetch_assoc()) { ?>
-                                        <option value="<?= $row['CountryName'] ?>"
-                                        <?php echo(getOldValues('country') == $row['CountryName'] ? "selected": "") ?>
-                                        ><?= $row['CountryName'] ?></option>
-                                    <?php } ?>
-                                <?php } ?>
-                            </select>
                         </div>
                     </div>
 
@@ -106,7 +81,7 @@ $country_list = $country->executeQuery($country->selectQuery('geocountries'));
                 </div>
                 <div class="mb-3">
                     <label class="form-control-label" for="password">Password <span class="text-danger">*</span></label>
-                    <input type="password" class="form-control" name="password" id="password" >
+                    <input type="password" class="form-control" name="password" id="password">
                 </div>
                 <div class="mb-3">
                     <label class="form-control-label" for="password_confirmation">Password Confirmation <span class="text-danger">*</span></label>

@@ -20,7 +20,7 @@ class Validators{
 
     static function userEmailUnique($email){
         $user = new User();
-        $user = $user->executeQuery($user->selectQuery('traveluser',"*","WHERE username= '$email'"));
+        $user = $user->executeQuery($user->selectQuery('user',"*","WHERE username= '$email'"));
         if($user->num_rows > 0){
             return ["is_valid" => false, "message"=>["Email '$email' already exists."] ];
         }

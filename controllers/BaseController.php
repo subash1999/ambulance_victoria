@@ -1,6 +1,6 @@
 <?php
-require_once "../models/TravelImage.php";
-require_once "../models/Post.php";
+
+
 
 class BaseController
 {
@@ -34,22 +34,4 @@ class BaseController
         return null;
     }
 
-    function getTopImages()
-    {
-        return $this->fetchAllResults(
-            (new TravelImage())->getTopImages()
-        );
-    }
-
-    function getNewAdditions()
-    {
-        return $this->fetchAllResults(
-            (new TravelImage())->getNewImages()
-        );
-    }
-
-    function getRecentPosts()
-    {
-        return $this->fetchAllResults((new Post())->getRecentPosts());
-    }
 }
