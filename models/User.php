@@ -1,15 +1,17 @@
 <?php
 require_once "BaseModel.php";
-class User extends BaseModel{
-    
-    function addUser($user,$company){
+class User extends BaseModel
+{
+
+    function addUser($user, $company)
+    {
         var_dump($user);
         var_dump($company);
         // query1 to add to company
-        $query1 = $this->insertQuery('company',$company);
+        $query1 = $this->insertQuery('company', $company);
         // query2 to select the id
-        $query2 = $this->selectQuery('company',"*","WHERE email='".$company['email']."'");
-        
+        $query2 = $this->selectQuery('company', "*", "WHERE email='" . $company['email'] . "'");
+
         $conn = $this->connect();
         /* set autocommit to off for trasaction*/
         $conn->autocommit(FALSE);
@@ -17,13 +19,13 @@ class User extends BaseModel{
         $conn->query($query1);
         $result = $conn->query($query2);
         $company_id = null;
-        if($result->num_rows>0){
+        if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $company_id = $row['id'];
         }
         $user['company_id'] = $company_id;
         // query to add to user
-        $query3 = $this->insertQuery('user',$user);
+        $query3 = $this->insertQuery('user', $user);
 
         $conn->query($query3);
         // commit
@@ -34,6 +36,18 @@ class User extends BaseModel{
         return $is_comitted;
     }
 
-   
-    
+    function getCompanyOfUser($user_id)
+    {
+        // query2 to select the id
+        $query = $this->selectQuery('user', "*", " WHERE id='" . $user_id . "'");
+        $result = $this->executeQuery($query);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $query = $this->selectQuery('company', '*', ' WHERE id=' . $row['company_id']);
+            $result = $this->executeQuery($query);
+            return $result;
+
+        }
+        return null;
+    }
 }

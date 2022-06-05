@@ -28,6 +28,8 @@ include "../utils/Date.php";
     <script src="../../assets/multilevel-dropdown.js"></script>
     <script src="../../assets/datatables/datatables.min.js"></script>
     <script src="../../assets/lightbox/js/lightbox.min.js"></script>
+    <script src="../../assets/vehicle.js"></script>
+    
     <title><?php echo ($title); ?></title>
 </head>
 

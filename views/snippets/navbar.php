@@ -53,6 +53,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <li><a class="dropdown-item" href="profile.php">My Profile</a></li>
               <li><a class="dropdown-item" href="edit_profile.php">Edit Profile</a></li>
               <li><a class="dropdown-item" href="my_vehicles.php">My Vehicles</a></li>
+              <li><a class="dropdown-item" href="add_vehicle.php">Add Vehicles</a></li>
+              <li><a class="dropdown-item" href="change_password.php">Change Password</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>

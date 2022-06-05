@@ -9,6 +9,16 @@ class Auth
     static function clearUserDetails(){
         unset($_SESSION['user']);
     }
+
+    static function currentCompany(){
+        if(Auth::isLogin()){
+            $result = (new User())->getCompanyOfUser(Auth::currentUser()['id']);
+            while ($row = $result->fetch_assoc()) {
+                return $row;
+            }
+        }
+        return null;
+    }
     static function isGuest()
     {
         return !isset($_SESSION['user']);
@@ -22,18 +32,11 @@ class Auth
     static function isAdmin()
     {
         if (Auth::isLogin()) {
-            return $_SESSION['user']['Privacy'] == 1;
+            return true;
         }
         return false;
     }
 
-    static function isUser()
-    {
-        if (Auth::isLogin()) {
-            return $_SESSION['user']['Privacy'] == 2;
-        }
-        return false;
-    }
 
     static function currentUser(){
         if (Auth::isLogin()) {
@@ -42,15 +45,6 @@ class Auth
         return null;
     }
 
-    static function userGuard(){
-        if(!Auth::isUser()){
-            echo '<script>
-
-            window.location="/views/login.php";
-
-            </script>';
-        }
-    }
 
     static function guestGuard(){
         if(!Auth::isGuest()){
