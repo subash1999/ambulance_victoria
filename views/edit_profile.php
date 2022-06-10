@@ -12,7 +12,7 @@ $company_details = Auth::currentCompany();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-    // $result = $register_controller->register($_POST);
+    $result = $profile_controller->update($_POST);
     if (!$result['success']) {
         $error_messages = $result['message'];
     }
@@ -29,8 +29,6 @@ function getOldValues($value_name)
     }
     return False;
 }
-
-
 ?>
 <h2 class="text-center text-info mt-2">Edit Profile</h2>
 <div class="row h-100">

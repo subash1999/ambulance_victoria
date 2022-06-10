@@ -27,6 +27,15 @@ class BaseModel
         return $result;
     }
 
+    public function executeQueryGetResultAndInsertId($query)
+    {
+        $conn = $this->connect();
+        $result =  $conn->query($query);
+        $insert_id = $conn->insert_id;
+        $conn->close();
+        return ['result'=>$result,'insert_id'=>$insert_id];
+    }
+
     public function selectQuery($table_name, $columns = "*", $where_condition = "")
     {
         return "SELECT  $columns FROM $table_name $where_condition";
@@ -70,7 +79,7 @@ class BaseModel
                 
             }
             $update_query = join(", ", $update_query);
-            $update_query = "";
+            // $update_query = "";
         }
         return "UPDATE $table_name SET $update_query $where";
     }

@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <a class="nav-link active" aria-current="page" href="company_list.php">Companies</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="search.php">Search Nearby Vehicles</a>
+          <a class="nav-link active" aria-current="page" href="search.php?search_nearby=true">Search Nearby Vehicles</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="about_us.php">About Us</a>

@@ -36,7 +36,7 @@ $my_vehicles = $vehicle_controller->getVehiclesList();
                     <?= $vehicle['driver_name'] ?>
                 </td>
                 <td>
-                    <a href="tel:<?= $vehicle['phone_number'] ?>"><?= $vehicle['phone_number'] ?></a>
+                    <a href="tel:<?= $vehicle['phone_number'] ?>"><img src="../assets/images/call_icon.png" alt="call icon" height="20px" width="20px"><?= $vehicle['phone_number'] ?></a>
                 </td>
                 <td>
                     <?= $vehicle['vehicle_model'] ?>
